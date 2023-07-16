@@ -14,6 +14,7 @@
     mkPkgs = attrs @ {pkgs, overlays, system, ...}:
       import pkgs ({
         inherit system overlays;
+        config.allowUnfree = true;
       } // attrs);
   };
 }
