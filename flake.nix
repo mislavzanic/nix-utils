@@ -10,5 +10,10 @@
         lib = self;
       };
     });
+
+    mkPkgs = attrs @ {pkgs, overlays, system, ...}:
+      import pkgs ({
+        inherit system overlays;
+      } // attrs);
   };
 }
