@@ -11,10 +11,10 @@ with lib.my; {
     user = mkOpt attrs {};
 
     dotfiles = {
-      dir = mkOpt path "${config.user.home}/.config/.dotfiles";
-        # (findFirst pathExists (toString ../.) [
-        #   "${config.user.home}/.config/.dotfiles"
-        # ]);
+      dir = 
+        (findFirst pathExists (toString ./.) [
+          "${config.user.home}/.config/.dotfiles"
+        ]);
       binDir = mkOpt path "${config.dotfiles.dir}/bin";
       configDir = mkOpt path "${config.dotfiles.dir}/config";
     };
