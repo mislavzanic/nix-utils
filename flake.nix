@@ -33,6 +33,6 @@
       pkgs = mkPkgs {inherit system; pkgs = nixpkgs;};
       lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
     in {
-      modules = mapModulesRec ./modules import;
+      modules = mapModules ./modules import;
     }) // { inherit mkLib mkPkgs; };
 }
