@@ -29,7 +29,7 @@
 
   in
     flake-utils.lib.eachDefaultSystem (system: let
-      inherit (lib.my) mapModulesRec;
+      inherit (lib.my) mapModules;
       pkgs = mkPkgs {inherit system; pkgs = nixpkgs;};
       lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
     in {
