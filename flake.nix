@@ -34,5 +34,5 @@
       lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
     in {
       modules = mapModules ./modules import;
-    }) // { inherit mkLib mkPkgs; home-module = import ./modules/hm.nix; };
+    }) // { inherit mkLib mkPkgs; home-module = import ./modules/home.nix; };
 }

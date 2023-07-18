@@ -51,7 +51,7 @@ with lib.my; {
       home = "/home/${name}";
       group = "users";
       uid = 1000;
-    } // config.user;
+    };
 
     # Install user packages to /etc/profiles instead. Necessary for
     # nixos-rebuild build-vm to work.
