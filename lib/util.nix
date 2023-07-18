@@ -4,4 +4,4 @@
     inherit lib;
     self = {};
   };
-};
+}
