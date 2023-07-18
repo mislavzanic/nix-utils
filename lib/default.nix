@@ -7,7 +7,7 @@
   inherit (lib) makeExtensible attrValues foldr;
   inherit (modules) mapModules;
 
-  modules = import ./util.nix {inherit lib;}
+  modules = import ./util.nix {inherit lib;};
 
   mylib = makeExtensible (self:
     with self;
