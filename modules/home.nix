@@ -11,7 +11,7 @@ with lib.my; {
     user = mkOpt attrs {};
 
     dotfiles = {
-      dir = 
+      dir = mkOpt path
         (findFirst pathExists (toString ./.) [
           "${config.user.home}/.config/.dotfiles"
         ]);
