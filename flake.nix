@@ -12,7 +12,6 @@
     home-manager,
     ...
   }: let
-    inherit (lib.my) mapModulesRec;
     system = "x86_64-linux";
 
     mkLib = attrs @ {pkgs, inputs, ...}: (self: super: {
@@ -31,6 +30,6 @@
     pkgs = mkPkgs {inherit system; pkgs = nixpkgs;};
     lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
   in {
-    modules = mapModulesRec ./modules import;
+    homeManager = import ./home.nix;
   } // { inherit mkLib mkPkgs; };
 }
