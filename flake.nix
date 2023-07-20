@@ -5,15 +5,16 @@
       url = "github:rycee/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = inputs @ {
     nixpkgs,
     home-manager,
-    flake-utils,
     ...
   }: let
+    inherit (lib.my) mapModulesRec;
+    system = "x86_64-linux";
+
     mkLib = attrs @ {pkgs, inputs, ...}: (self: super: {
       my = import ./lib {
         inherit pkgs inputs;
@@ -27,12 +28,9 @@
         config.allowUnfree = true;
       } // attrs);
 
-  in
-    flake-utils.lib.eachDefaultSystem (system: let
-      inherit (lib.my) mapModules;
-      pkgs = mkPkgs {inherit system; pkgs = nixpkgs;};
-      lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
-    in {
-      modules = mapModules ./modules import;
-    }) // { inherit mkLib mkPkgs; home-module = import ./modules/home.nix; };
+    pkgs = mkPkgs {inherit system; pkgs = nixpkgs;};
+    lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
+  in {
+    modules = mapModulesRec ./modules import;
+  } // { inherit mkLib mkPkgs; };
 }
