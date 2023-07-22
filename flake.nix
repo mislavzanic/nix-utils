@@ -1,19 +1,7 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
-    home-manager = {
-      url = "github:rycee/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
+  inputs = {};
 
-  outputs = inputs @ {
-    nixpkgs,
-    home-manager,
-    ...
-  }: let
-    system = "x86_64-linux";
-
+  outputs = inputs: let
     mkLib = attrs @ {pkgs, inputs, ...}: (self: super: {
       my = import ./lib {
         inherit pkgs inputs;
@@ -26,10 +14,5 @@
         inherit system overlays;
         config.allowUnfree = true;
       } // attrs);
-
-    pkgs = mkPkgs {inherit system; pkgs = nixpkgs;};
-    lib = nixpkgs.lib.extend (mkLib {inherit pkgs inputs;});
-  in {
-    homeManager = import ./home.nix;
-  } // { inherit mkLib mkPkgs; };
+  in {inherit mkLib mkPkgs;};
 }
