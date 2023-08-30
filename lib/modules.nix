@@ -51,7 +51,8 @@ in rec {
       mapAttrsToList
       (k: _: "${dir}/${k}")
       (filterAttrs
-        (n: v: v == "directory" && !(hasPrefix "__" n) && !(builtins.elem n))
+        (n: v: v == "directory" && !(hasPrefix "__" n))
+        # (n: v: v == "directory" && !(hasPrefix "__" n) && !(builtins.elem n))
         (readDir dir));
     files = mapModules' dir id;
     # files = attrValues (mapModules dir id);
