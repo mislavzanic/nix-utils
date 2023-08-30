@@ -51,9 +51,10 @@ in rec {
       mapAttrsToList
       (k: _: "${dir}/${k}")
       (filterAttrs
-        (n: v: v == "directory" && !(hasPrefix "__" n))
+        (n: v: v == "directory" && !(hasPrefix "__" n) && !(builtins.elem n))
         (readDir dir));
-    files = attrValues (mapModules dir id);
+    files = mapModules' dir id;
+    # files = attrValues (mapModules dir id);
     paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);
   in
     map fn paths;
